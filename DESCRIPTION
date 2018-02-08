@@ -1,6 +1,6 @@
 Type: Package
 Package: PWFSLSmoke
-Version: 1.0.12
+Version: 1.0.13
 Title: Utilities for Working with Air Quality Monitoring Data
 Authors@R: c(
     person("Jonathan", "Callahan", email="jonathan.s.callahan@gmail.com", role=c("aut","cre")), 
@@ -10,7 +10,8 @@ Authors@R: c(
     person("Jimin", "Kim", email="jk55@uw.edu", role=c("aut")),
     person("Helen", "Miller", email="helen@ohana.org", role=c("aut")),
     person("Rex", "Thompson", email="rexs.thompson@gmail.com", role=c("aut")),
-    person("Alice", "Yang", email="wenhuy@uw.edu", role=c("aut"))
+    person("Alice", "Yang", email="wenhuy@uw.edu", role=c("aut")),
+    person("J. R.", "Matchett", email="jmatchett@usgs.gov", role=c("aut"))
     )
 Author: Jonathan Callahan [aut, cre],
     Rohan Aras [aut],
@@ -19,7 +20,8 @@ Author: Jonathan Callahan [aut, cre],
     Jimin Kim [aut],
     Helen Miller [aut],
     Rex Thompson [aut],
-    Alice Yang [aut]
+    Alice Yang [aut],
+    J. R. Matchett [aut]
 Maintainer: Jonathan Callahan <jonathan.s.callahan@gmail.com>
 Depends:
     R (>= 3.1.0),
@@ -31,6 +33,7 @@ Imports:
     cluster,
     dygraphs (>= 1.1.1.4),
     futile.logger,
+    ggplot2,
     ggmap,
     httr,
     jsonlite,
@@ -48,6 +51,7 @@ Imports:
     reshape2,
     sp,
     stringr,
+    tidyr,
     xts,
     zoo
 Suggests:
