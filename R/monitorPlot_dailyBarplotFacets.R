@@ -4,7 +4,7 @@
 #' @import tidyr
 #' @import ggplot2
 #' @title Create Daily AQI Barplots of Multiple Monitors
-#' @param ws_monitor \emph{ws_monitor} object
+#' @param ws_monitor \code{ws_monitor} object
 #' @param monitorIDs vector of monitor IDs in ws_monitor to subset and plot
 #' @param title plot title
 #' @param smooth_func PWFSLSmoke smoothing function
@@ -43,14 +43,12 @@ monitorPlot_dailyBarplotFacets <- function(
         gather(key='monitorID', value='pm25', -datetime) %>%
         mutate(
             aqi=cut(pm25, breaks=AQI$breaks_24, labels=aqi_names),
-            date_start=datetime,
-            datetime=datetime + 86400/2,
-            date_end=date_start + 86400
+            datetime=datetime + 86400/2
         ) %>%
         inner_join(site_names, by='monitorID')
 
     ws_plot <- ggplot(data_daily, aes(x=datetime, y=pm25, fill=aqi)) +
-        geom_col(mapping=aes(xmin=date_start, xmax=date_end), alpha=0.5, width=86400) +
+        geom_col(alpha=0.5, width=86400) +
         facet_wrap(~siteName, ncol=1) +
         scale_fill_manual(name='Daily Air Quality Index (24 hr AQI)', values=aqi_colors, drop=FALSE,
             guide=guide_legend(order=1, override.aes=list(shape=NA))) +

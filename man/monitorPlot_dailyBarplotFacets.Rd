@@ -10,7 +10,7 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs, title,
   legend_position = c(1, 1), ...)
 }
 \arguments{
-\item{ws_monitor}{\emph{ws_monitor} object}
+\item{ws_monitor}{\code{ws_monitor} object}
 
 \item{monitorIDs}{vector of monitor IDs in ws_monitor to subset and plot}
 
