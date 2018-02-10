@@ -6,8 +6,8 @@
 \usage{
 monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs, title,
   smooth_func = monitor_nowcast, smooth_args = list(),
-  smooth_style = c("bars", "points"), smooth_name = "NowCast",
-  legend_position = c(1, 1), ...)
+  smooth_style = c("bars", "points"), smooth_name = "Hourly NowCast",
+  theme = theme_monitors(), ...)
 }
 \arguments{
 \item{ws_monitor}{\code{ws_monitor} object}
@@ -24,9 +24,9 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs, title,
 
 \item{smooth_name}{name of smoothing method used in legend}
 
-\item{legend_position}{placement of legend (see \code{ggplot2::theme legend.position} for options)}
-
 \item{...}{additional arguments, such as \code{tlim}, passed to \code{monitor_subset()}}
+
+\item{legend_position}{placement of legend (see \code{ggplot2::theme legend.position} for options)}
 }
 \value{
 \code{ggplot2::ggplot} object

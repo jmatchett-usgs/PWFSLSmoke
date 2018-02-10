@@ -11,7 +11,7 @@
 #' @param smooth_args list of additional arguments to the smoothing function
 #' @param smooth_style how smoothed values are plotted (set to \code{NULL} to exclude smoothed values)
 #' @param smooth_name name of smoothing method used in legend
-#' @param legend_position placement of legend (see \code{ggplot2::theme legend.position} for options)
+#' @param theme \code{ggplot2::theme} controlling plotting options
 #' @param ... additional arguments, such as \code{tlim}, passed to \code{monitor_subset()}
 #' @return \code{ggplot2::ggplot} object
 #' @description Plots a facetted set of air quality monitoring data.
@@ -19,7 +19,7 @@
 monitorPlot_dailyBarplotFacets <- function(
     ws_monitor, monitorIDs, title,
     smooth_func=monitor_nowcast, smooth_args=list(), smooth_style=c('bars', 'points'),
-    smooth_name='NowCast', legend_position=c(1, 1), ...) {
+    smooth_name='Hourly NowCast', theme=theme_monitors(), ...) {
 
     # AQI colors and legend names
     aqi_colors <- AQI$colors
@@ -56,20 +56,9 @@ monitorPlot_dailyBarplotFacets <- function(
             guide=guide_legend(order=1, override.aes=list(shape=NA))) +
         labs(x='Date (midnight to midnight)', y=expression(paste("PM"[2.5] * " (", mu, "g/m"^3 * ")")),
              title=title) +
-        theme_bw() +
-        theme(
-            legend.box='horizontal', legend.position=legend_position,
-            legend.direction='vertical', legend.justification=c(1,1),
-            legend.box.background=element_rect(fill='white', color='black'),
-            legend.background=element_blank(),
-            panel.grid.major.x=element_blank(),
-            panel.grid.minor.x=element_line(color='lightgray', size=0.25, linetype=2),
-            axis.text.x=element_text(angle=45, hjust=1),
-            panel.grid.major.y = element_line(color='lightgray', size=0.25, linetype=2),
-            panel.grid.minor.y = element_blank()
-        ) +
         scale_x_datetime(breaks=ws_sub_daily$data$datetime + 86400/2, date_minor_breaks='24 hours',
-                         date_labels='%b %d', expand=c(0,0))
+                         date_labels='%b %d', expand=c(0,0)) +
+        theme
     # Smoothed AQI
     if(!is.null(smooth_func)) {
         smooth_args$ws_monitor <- ws_sub
@@ -91,7 +80,7 @@ monitorPlot_dailyBarplotFacets <- function(
         }
         ws_plot <- ws_plot +
             geom_col(mapping=aes(fill=NULL), alpha=0, color='black', size=0.25, width=86400) +
-            scale_color_manual(name=sprintf('Hourly %s (actions to protect yourself)', smooth_name),
+            scale_color_manual(name=sprintf('%s (actions to protect yourself)', smooth_name),
                 values=aqi_colors, drop=FALSE, labels=aqi_actions,
                 guide=guide_legend(order=0, override.aes=list(size=2))
             )
