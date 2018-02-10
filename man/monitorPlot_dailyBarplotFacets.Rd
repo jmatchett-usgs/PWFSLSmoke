@@ -24,9 +24,9 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs, title,
 
 \item{smooth_name}{name of smoothing method used in legend}
 
-\item{...}{additional arguments, such as \code{tlim}, passed to \code{monitor_subset()}}
+\item{theme}{\code{ggplot2::theme} controlling plotting options}
 
-\item{legend_position}{placement of legend (see \code{ggplot2::theme legend.position} for options)}
+\item{...}{additional arguments, such as \code{tlim}, passed to \code{monitor_subset()}}
 }
 \value{
 \code{ggplot2::ggplot} object
