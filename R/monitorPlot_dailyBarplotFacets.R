@@ -63,9 +63,9 @@ monitorPlot_dailyBarplotFacets <- function(
             legend.box.background=element_rect(fill='white', color='black'),
             legend.background=element_blank(),
             panel.grid.major.x=element_blank(),
-            panel.grid.minor.x=element_line(color='lightgray', linetype=2),
+            panel.grid.minor.x=element_line(color='lightgray', size=0.25, linetype=2),
             axis.text.x=element_text(angle=45, hjust=1),
-            panel.grid.major.y = element_line(color='lightgray', linetype=2),
+            panel.grid.major.y = element_line(color='lightgray', size=0.25, linetype=2),
             panel.grid.minor.y = element_blank()
         ) +
         scale_x_datetime(breaks=ws_sub_daily$data$datetime + 86400/2, date_minor_breaks='24 hours',
@@ -90,6 +90,7 @@ monitorPlot_dailyBarplotFacets <- function(
                 geom_point(mapping=aes(color=aqi), size=0.5, data=data_smooth)
         }
         ws_plot <- ws_plot +
+            geom_col(mapping=aes(fill=NULL), alpha=0, color='black', size=0.25, width=86400) +
             scale_color_manual(name=sprintf('Hourly %s (actions to protect yourself)', smooth_name),
                 values=aqi_colors, drop=FALSE, labels=aqi_actions,
                 guide=guide_legend(order=0, override.aes=list(size=2))
