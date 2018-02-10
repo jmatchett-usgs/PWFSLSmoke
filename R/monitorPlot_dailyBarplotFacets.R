@@ -43,6 +43,8 @@ monitorPlot_dailyBarplotFacets <- function(
         gather(key='monitorID', value='pm25', -datetime) %>%
         mutate(
             aqi=cut(pm25, breaks=AQI$breaks_24, labels=aqi_names),
+            time_start=datetime,
+            time_end=datetime + 86400,
             datetime=datetime + 86400/2
         ) %>%
         inner_join(site_names, by='monitorID')
@@ -52,7 +54,7 @@ monitorPlot_dailyBarplotFacets <- function(
         facet_wrap(~siteName, ncol=1) +
         scale_fill_manual(name='Daily Air Quality Index (24 hr AQI)', values=aqi_colors, drop=FALSE,
             guide=guide_legend(order=1, override.aes=list(shape=NA))) +
-        labs(x='Date', y=expression(paste("PM"[2.5] * " (", mu, "g/m"^3 * ")")),
+        labs(x='Date (midnight to midnight)', y=expression(paste("PM"[2.5] * " (", mu, "g/m"^3 * ")")),
              title=title) +
         theme_bw() +
         theme(
@@ -60,13 +62,14 @@ monitorPlot_dailyBarplotFacets <- function(
             legend.direction='vertical', legend.justification=c(1,1),
             legend.box.background=element_rect(fill='white', color='black'),
             legend.background=element_blank(),
-            panel.grid.major.x=element_line(color='lightgray', linetype=2),
-            panel.grid.minor.x=element_blank(),
+            panel.grid.major.x=element_blank(),
+            panel.grid.minor.x=element_line(color='lightgray', linetype=2),
             axis.text.x=element_text(angle=45, hjust=1),
             panel.grid.major.y = element_line(color='lightgray', linetype=2),
             panel.grid.minor.y = element_blank()
         ) +
-        scale_x_datetime(breaks=ws_sub_daily$data$datetime, expand=c(0,0))
+        scale_x_datetime(breaks=ws_sub_daily$data$datetime + 86400/2, date_minor_breaks='24 hours',
+                         date_labels='%b %d', expand=c(0,0))
     # Smoothed AQI
     if(!is.null(smooth_func)) {
         smooth_args$ws_monitor <- ws_sub
