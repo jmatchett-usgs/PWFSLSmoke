@@ -56,7 +56,8 @@ monitorPlot_dailyBarplotFacets <- function(
             guide=guide_legend(order=1, override.aes=list(shape=NA))) +
         labs(x='Date (midnight to midnight)', y=expression(paste("PM"[2.5] * " (", mu, "g/m"^3 * ")")),
              title=title) +
-        scale_x_datetime(breaks=ws_sub_daily$data$datetime + 86400/2, date_minor_breaks='24 hours',
+        scale_x_datetime(breaks=ws_sub_daily$data$datetime + 86400/2,
+                         minor_breaks=ws_sub_daily$data$datetime,
                          date_labels='%b %d', expand=c(0,0)) +
         theme
     # Smoothed AQI
