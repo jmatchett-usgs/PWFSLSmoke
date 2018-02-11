@@ -5,7 +5,7 @@
 #' @import ggplot2
 #' @title Create Daily AQI Barplots of Multiple Monitors
 #' @param ws_monitor \code{ws_monitor} object
-#' @param monitorIDs vector of monitor IDs in ws_monitor to subset and plot
+#' @param monitorIDs vector of monitor IDs in ws_monitor to subset and plot (if \code{NULL}, all monitors are plotted)
 #' @param title plot title
 #' @param smooth_func PWFSLSmoke smoothing function
 #' @param smooth_args list of additional arguments to the smoothing function
@@ -17,7 +17,7 @@
 #' @description Plots a facetted set of air quality monitoring data.
 
 monitorPlot_dailyBarplotFacets <- function(
-    ws_monitor, monitorIDs, title,
+    ws_monitor, monitorIDs=NULL, title='Daily AQI',
     smooth_func=monitor_nowcast, smooth_args=list(), smooth_style=c('bars', 'points'),
     smooth_name='Hourly NowCast', theme=theme_monitors(), ...) {
 
@@ -35,7 +35,10 @@ monitorPlot_dailyBarplotFacets <- function(
         'Everyone should avoid any outdoor activity.'
     )
     # subset monitoring IDs
-    ws_sub <- monitor_subset(ws_monitor, monitorIDs=monitorIDs, ...)
+    if(!is.null(monitorIDs))
+        ws_sub <- monitor_subset(ws_monitor, monitorIDs=monitorIDs, ...)
+    else
+        ws_sub <- ws_monitor
     site_names <- ws_sub$meta %>% select(monitorID, siteName)
     # AQI daily average
     ws_sub_daily <- monitor_dailyStatistic(ws_sub)

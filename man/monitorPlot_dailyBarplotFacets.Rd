@@ -4,15 +4,15 @@
 \alias{monitorPlot_dailyBarplotFacets}
 \title{Create Daily AQI Barplots of Multiple Monitors}
 \usage{
-monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs, title,
-  smooth_func = monitor_nowcast, smooth_args = list(),
-  smooth_style = c("bars", "points"), smooth_name = "Hourly NowCast",
-  theme = theme_monitors(), ...)
+monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
+  title = "Daily AQI", smooth_func = monitor_nowcast,
+  smooth_args = list(), smooth_style = c("bars", "points"),
+  smooth_name = "Hourly NowCast", theme = theme_monitors(), ...)
 }
 \arguments{
 \item{ws_monitor}{\code{ws_monitor} object}
 
-\item{monitorIDs}{vector of monitor IDs in ws_monitor to subset and plot}
+\item{monitorIDs}{vector of monitor IDs in ws_monitor to subset and plot (if \code{NULL}, all monitors are plotted)}
 
 \item{title}{plot title}
 
