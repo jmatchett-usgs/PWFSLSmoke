@@ -24,8 +24,8 @@ theme_monitors(title_size = 14, axis_title_size = 12,
 \item{legend_position}{legend position}
 }
 \value{
-\code{ggplot2::theme}
+ggplot2 \code{\link[ggplot2]{theme}}
 }
 \description{
-A theme used by \code{monitorPlot_dailyBarplotFacets}.
+A plotting \code{\link[ggplot2]{theme}} used by \code{\link[PWFSLSmoke]{monitorPlot_dailyBarplotFacets}}.
 }

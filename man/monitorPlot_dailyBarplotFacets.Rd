@@ -7,16 +7,17 @@
 monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
   title = "Daily AQI", smooth_func = monitor_nowcast,
   smooth_args = list(), smooth_style = c("bars", "points"),
-  smooth_name = "Hourly NowCast", theme = theme_monitors(), ...)
+  smooth_name = "Hourly NowCast", theme = theme_monitors(),
+  date_format = "\%b \%d", ...)
 }
 \arguments{
 \item{ws_monitor}{\code{ws_monitor} object}
 
-\item{monitorIDs}{vector of monitor IDs in ws_monitor to subset and plot (if \code{NULL}, all monitors are plotted)}
+\item{monitorIDs}{vector of monitor IDs in \code{ws_monitor} to subset and plot (if \code{NULL}, all monitors are plotted)}
 
 \item{title}{plot title}
 
-\item{smooth_func}{PWFSLSmoke smoothing function}
+\item{smooth_func}{\code{PWFSLSmoke} smoothing function}
 
 \item{smooth_args}{list of additional arguments to the smoothing function}
 
@@ -24,14 +25,16 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
 
 \item{smooth_name}{name of smoothing method used in legend}
 
-\item{theme}{\code{ggplot2::theme} controlling plotting options}
+\item{theme}{ggplot2 \code{\link[ggplot2]{theme}} controlling plotting options (see \code{\link[PWFSLSmoke]{theme_monitors}} for default)}
 
-\item{...}{additional arguments, such as \code{tlim}, passed to \code{monitor_subset()}}
+\item{date_format}{formatting code for x-axis dates (see \code{\link[base]{strftime}} for codes)}
+
+\item{...}{additional arguments, such as \code{tlim}, passed to \code{\link[PWFSLSmoke]{monitor_subset}}}
 }
 \value{
-\code{ggplot2::ggplot} object
+\code{\link[ggplot2]{ggplot}} object
 }
 \description{
-Plots a facetted set of air quality monitoring data.
+Plots a facetted set of daily-averaged air quality data for multiple monitoring stations.
 }
 \keyword{ws_monitor}

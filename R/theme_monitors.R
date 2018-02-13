@@ -8,8 +8,8 @@
 #' @param legend_title_size size of legend titles
 #' @param legend_label_size size of legend item labels
 #' @param legend_position legend position
-#' @description A theme used by \code{monitorPlot_dailyBarplotFacets}.
-#' @return \code{ggplot2::theme}
+#' @description A plotting \code{\link[ggplot2]{theme}} used by \code{\link[PWFSLSmoke]{monitorPlot_dailyBarplotFacets}}.
+#' @return ggplot2 \code{\link[ggplot2]{theme}}
 
 theme_monitors <- function(
     title_size=14,

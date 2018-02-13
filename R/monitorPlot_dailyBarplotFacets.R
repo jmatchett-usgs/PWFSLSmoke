@@ -5,21 +5,22 @@
 #' @import ggplot2
 #' @title Create Daily AQI Barplots of Multiple Monitors
 #' @param ws_monitor \code{ws_monitor} object
-#' @param monitorIDs vector of monitor IDs in ws_monitor to subset and plot (if \code{NULL}, all monitors are plotted)
+#' @param monitorIDs vector of monitor IDs in \code{ws_monitor} to subset and plot (if \code{NULL}, all monitors are plotted)
 #' @param title plot title
-#' @param smooth_func PWFSLSmoke smoothing function
+#' @param smooth_func \code{PWFSLSmoke} smoothing function
 #' @param smooth_args list of additional arguments to the smoothing function
 #' @param smooth_style how smoothed values are plotted (set to \code{NULL} to exclude smoothed values)
 #' @param smooth_name name of smoothing method used in legend
-#' @param theme \code{ggplot2::theme} controlling plotting options
-#' @param ... additional arguments, such as \code{tlim}, passed to \code{monitor_subset()}
-#' @return \code{ggplot2::ggplot} object
-#' @description Plots a facetted set of air quality monitoring data.
+#' @param theme ggplot2 \code{\link[ggplot2]{theme}} controlling plotting options (see \code{\link[PWFSLSmoke]{theme_monitors}} for default)
+#' @param date_format formatting code for x-axis dates (see \code{\link[base]{strftime}} for codes)
+#' @param ... additional arguments, such as \code{tlim}, passed to \code{\link[PWFSLSmoke]{monitor_subset}}
+#' @return \code{\link[ggplot2]{ggplot}} object
+#' @description Plots a facetted set of daily-averaged air quality data for multiple monitoring stations.
 
 monitorPlot_dailyBarplotFacets <- function(
     ws_monitor, monitorIDs=NULL, title='Daily AQI',
     smooth_func=monitor_nowcast, smooth_args=list(), smooth_style=c('bars', 'points'),
-    smooth_name='Hourly NowCast', theme=theme_monitors(), ...) {
+    smooth_name='Hourly NowCast', theme=theme_monitors(), date_format='%b %d', ...) {
 
     # AQI colors and legend names
     aqi_colors <- AQI$colors
@@ -61,7 +62,7 @@ monitorPlot_dailyBarplotFacets <- function(
              title=title) +
         scale_x_datetime(breaks=ws_sub_daily$data$datetime + 86400/2,
                          minor_breaks=ws_sub_daily$data$datetime,
-                         date_labels='%b %d', expand=c(0,0)) +
+                         date_labels=date_format, expand=c(0,0)) +
         theme
     # Smoothed AQI
     if(!is.null(smooth_func)) {
