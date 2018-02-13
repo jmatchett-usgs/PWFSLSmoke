@@ -7,9 +7,9 @@
 #' @param ws_monitor \code{ws_monitor} object
 #' @param monitorIDs vector of monitor IDs in \code{ws_monitor} to subset and plot (if \code{NULL}, all monitors are plotted)
 #' @param title plot title
-#' @param smooth_func \code{PWFSLSmoke} smoothing function
+#' @param smooth_func \code{PWFSLSmoke} smoothing function (set to \code{NULL} to exclude smoothed values)
 #' @param smooth_args list of additional arguments to the smoothing function
-#' @param smooth_style how smoothed values are plotted (set to \code{NULL} to exclude smoothed values)
+#' @param smooth_style how smoothed values are plotted
 #' @param smooth_name name of smoothing method used in legend
 #' @param theme ggplot2 \code{\link[ggplot2]{theme}} controlling plotting options (see \code{\link[PWFSLSmoke]{theme_monitors}} for default)
 #' @param date_format formatting code for x-axis dates (see \code{\link[base]{strftime}} for codes)

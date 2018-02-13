@@ -17,11 +17,11 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
 
 \item{title}{plot title}
 
-\item{smooth_func}{\code{PWFSLSmoke} smoothing function}
+\item{smooth_func}{\code{PWFSLSmoke} smoothing function (set to \code{NULL} to exclude smoothed values)}
 
 \item{smooth_args}{list of additional arguments to the smoothing function}
 
-\item{smooth_style}{how smoothed values are plotted (set to \code{NULL} to exclude smoothed values)}
+\item{smooth_style}{how smoothed values are plotted}
 
 \item{smooth_name}{name of smoothing method used in legend}
 
