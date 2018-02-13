@@ -53,8 +53,17 @@ monitorPlot_dailyBarplotFacets <- function(
         ) %>%
         inner_join(site_names, by='monitorID')
 
+    if(is.null(smooth_func)) {
+        daily_alpha <- 1
+        daily_color <- 'black'
+        daily_size <- 0.25
+    } else {
+        daily_alpha <- 0.5
+        daily_color <- NA
+        daily_size <- 0
+    }
     ws_plot <- ggplot(data_daily, aes(x=datetime, y=pm25, fill=aqi)) +
-        geom_col(alpha=0.5, width=86400) +
+        geom_col(alpha=daily_alpha, color=daily_color, size=daily_size, width=86400) +
         facet_wrap(~siteName, ncol=1) +
         scale_fill_manual(name='Daily Air Quality Index (24 hr AQI)', values=aqi_colors, drop=FALSE,
             guide=guide_legend(order=1, override.aes=list(shape=NA))) +
