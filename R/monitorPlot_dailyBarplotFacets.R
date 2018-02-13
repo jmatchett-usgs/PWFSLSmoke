@@ -16,6 +16,11 @@
 #' @param ... additional arguments, such as \code{tlim}, passed to \code{\link[PWFSLSmoke]{monitor_subset}}
 #' @return \code{\link[ggplot2]{ggplot}} object
 #' @description Plots a facetted set of daily-averaged air quality data for multiple monitoring stations.
+#' @examples
+#' \dontrun{
+#' portland_monitors <- Northwest_Megafires$meta$monitorID[grepl('Portland', Northwest_Megafires$meta$siteName)]
+#' monitorPlot_dailyBarplotFacets(Northwest_Megafires, monitorIDs=portland_monitors, tlim=c(20150815,20150901), timezone='US/Pacific')
+#' }
 
 monitorPlot_dailyBarplotFacets <- function(
     ws_monitor, monitorIDs=NULL, title='Daily AQI',
