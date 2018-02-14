@@ -2,7 +2,7 @@
 # ----- Example datasets ------------------------------------------------------
 
 #' Carmel Valley example dataset
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Carmel_Valley
@@ -18,7 +18,7 @@
 NULL
 
 #' Northwest_Megafires example dataset
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Northwest_Megafires
@@ -27,7 +27,7 @@ NULL
 #' @description
 #' In the summer of 2015 Washington state had several catastrophic wildfires that led
 #' to many days of heavy smoke in eastern Washington, Oregon and northern Idaho.
-#' The Northwest_Megafires dataset contains AirNow ambient monitoring data for the 
+#' The Northwest_Megafires dataset contains AirNow ambient monitoring data for the
 #' Pacific Northwest from May 31 through November 01, 2015 (UTC). Data are stored
 #' as a \emph{ws_monitor} object and are used in many examples in the package
 #' documentation.
@@ -36,7 +36,7 @@ NULL
 # ----- WRCC related info -----------------------------------------------------
 
 #' WRCC monitor names and unitIDs
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name WRCC
@@ -45,11 +45,11 @@ NULL
 #' @description
 #' The WRCC \url{http://www.wrcc.dri.edu/cgi-bin/smoke.pl}{Fire Cache Smoke Monitor Archive}
 #' provides access to a variety of monitors that can be accessed with the \link{wrcc_createMonitorObject}
-#' function. Use of this funciton requires a valid unitID. The \code{WRCC} object is 
-#' a list of lists. The element named \code{unitIDs} is itself a list of three named vectors, 
+#' function. Use of this funciton requires a valid unitID. The \code{WRCC} object is
+#' a list of lists. The element named \code{unitIDs} is itself a list of three named vectors,
 #' each containing the unitIDs and associated names for
 #' one of the categories of monitors available at WRCC:
-#' 
+#'
 #' \itemize{
 #' \item{cache}
 #' \item{miscellaneous}
@@ -61,7 +61,7 @@ NULL
 # ----- AIRSIS related info ---------------------------------------------------
 
 #' AIRSIS monitor types and codes
-#' 
+#'
 #' @export
 #' @docType data
 #' @name AIRSIS
@@ -70,10 +70,10 @@ NULL
 #' @description
 #' AIRSIS provides access to data by unit type at URLs like:
 #'   http://usfs.airsis.com/vision/common/CSVExport.aspx?utid=38&StartDate=2017-11-06&EndDate=2017-11-07
-#' 
+#'
 #' The \code{AIRSIS} objectis a list of lists. The element named \code{unitTypes} is itself
 #' a list of named unit types:
-#' 
+#'
 #' Unit types include:
 #' \itemize{
 #' \item{DATARAM}{ 21 = Dataram}
@@ -95,7 +95,7 @@ AIRSIS <- list(unitTypes=list(DATARAM=21,
 # ----- AQI breaks -------------------------------------------------------------
 
 #' AQI breaks and associated names and colors
-#' 
+#'
 #' @export
 #' @docType data
 #' @name AQI
@@ -104,7 +104,7 @@ AIRSIS <- list(unitTypes=list(DATARAM=21,
 #' @description
 #' Official AQI levels, names and colors are provided in a list for easy coloring and labeling.
 #' @details
-#' 
+#'
 #' AQI breaks and colors are defined in
 #' \url{https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf}
 #' @note
@@ -117,12 +117,24 @@ AQI <- list(breaks_24=c(-Inf, 12, 35.5, 55.5, 150.5, 250.5, Inf),
                      grDevices::rgb(255/255,0,0),
                      grDevices::rgb(143/255,63/255,151/255),
                      grDevices::rgb(126/255,0,35/255)),
-            names=c('good','moderate','USG','unhealthy','very unhealthy','hazardous'))
+            names=c('good','moderate','USG','unhealthy','very unhealthy','hazardous'),
+            title_names=c('Good', 'Moderate', 'Unhealthy for Sensitive Groups',
+                           'Unhealthy', 'Very Unhealthy', 'Hazardous'),
+            actions=c(
+                'None.',
+                'Unusually sensitive individuals should consider limiting prolonged or heavy exertion.',
+                'People within Sensitive Groups should reduce prolonged or heavy outdoor exertion.',
+                'People within Sensitive Groups should avoid all physical outdoor activity.',
+                'Everyone should avoid prolonged or heavy exertion.',
+                'Everyone should avoid any outdoor activity.'
+            )
+        )
+names(AQI$colors) <- AQI$title_names
 
 # ----- State codes -----------------------------------------------------------
 
 #' CONUS state codes
-#' 
+#'
 #' @export
 #' @docType data
 #' @name CONUS
@@ -139,7 +151,7 @@ CONUS <- c(     "AL","AZ","AR","CA","CO","CT","DE","FL","GA",
            "DC"     )
 
 #' US state codes
-#' 
+#'
 #' @export
 #' @docType data
 #' @name US_52

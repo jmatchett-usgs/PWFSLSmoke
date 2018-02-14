@@ -27,19 +27,6 @@ monitorPlot_dailyBarplotFacets <- function(
     smooth_func=monitor_nowcast, smooth_args=list(), smooth_style=c('bars', 'points'),
     smooth_name='Hourly NowCast', theme=theme_monitors(), date_format='%b %d', ...) {
 
-    # AQI colors and legend names
-    aqi_colors <- AQI$colors
-    aqi_names <- c('Good', 'Moderate', 'Unhealthy for Sensitive Groups',
-        'Unhealthy', 'Very Unhealthy', 'Hazardous')
-    names(aqi_colors) <- aqi_names
-    aqi_actions <- c(
-        'None.',
-        'Unusually sensitive individuals should consider limiting prolonged or heavy exertion.',
-        'People within Sensitive Groups should reduce prolonged or heavy outdoor exertion.',
-        'People within Sensitive Groups should avoid all physical outdoor activity.',
-        'Everyone should avoid prolonged or heavy exertion.',
-        'Everyone should avoid any outdoor activity.'
-    )
     # subset monitoring IDs
     if(!is.null(monitorIDs))
         ws_sub <- monitor_subset(ws_monitor, monitorIDs=monitorIDs, ...)
@@ -51,7 +38,7 @@ monitorPlot_dailyBarplotFacets <- function(
     data_daily <- ws_sub_daily$data %>%
         gather(key='monitorID', value='pm25', -datetime) %>%
         mutate(
-            aqi=cut(pm25, breaks=AQI$breaks_24, labels=aqi_names),
+            aqi=cut(pm25, breaks=AQI$breaks_24, labels=AQI$title_names),
             time_start=datetime,
             time_end=datetime + 86400,
             datetime=datetime + 86400/2
@@ -70,7 +57,7 @@ monitorPlot_dailyBarplotFacets <- function(
     ws_plot <- ggplot(data_daily, aes(x=datetime, y=pm25, fill=aqi)) +
         geom_col(alpha=daily_alpha, color=daily_color, size=daily_size, width=86400) +
         facet_wrap(~siteName, ncol=1) +
-        scale_fill_manual(name='Daily Air Quality Index (24 hr AQI)', values=aqi_colors, drop=FALSE,
+        scale_fill_manual(name='Daily Air Quality Index (24-hr AQI)', values=AQI$colors, drop=FALSE,
             guide=guide_legend(order=1, override.aes=list(shape=NA))) +
         labs(x='Date (midnight to midnight)', y=expression(paste("PM"[2.5] * " (", mu, "g/m"^3 * ")")),
              title=title) +
@@ -84,7 +71,7 @@ monitorPlot_dailyBarplotFacets <- function(
         ws_smooth <- do.call(smooth_func, smooth_args)
         data_smooth <- ws_smooth$data %>%
             gather(key='monitorID', value='pm25', -datetime) %>%
-            mutate(aqi=cut(pm25, breaks=AQI$breaks_24, labels=aqi_names)) %>%
+            mutate(aqi=cut(pm25, breaks=AQI$breaks_24, labels=AQI$title_names)) %>%
             filter(!is.na(pm25)) %>%
             inner_join(site_names, by='monitorID')
         smooth_style <- match.arg(smooth_style)
@@ -100,7 +87,7 @@ monitorPlot_dailyBarplotFacets <- function(
         ws_plot <- ws_plot +
             geom_col(mapping=aes(fill=NULL), alpha=0, color='black', size=0.25, width=86400) +
             scale_color_manual(name=sprintf('%s (actions to protect yourself)', smooth_name),
-                values=aqi_colors, drop=FALSE, labels=aqi_actions,
+                values=AQI$colors, drop=FALSE, labels=AQI$actions,
                 guide=guide_legend(order=0, override.aes=list(size=2))
             )
     }
