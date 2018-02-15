@@ -7,8 +7,8 @@
 monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
   title = "Daily AQI", smooth_func = monitor_nowcast,
   smooth_args = list(), smooth_style = c("bars", "points"),
-  smooth_name = "Hourly NowCast", theme = theme_monitors(),
-  date_format = "\%b \%d", ...)
+  smooth_size = 0.5, smooth_name = "Hourly NowCast",
+  theme = theme_monitors(), date_format = "\%b \%d", ...)
 }
 \arguments{
 \item{ws_monitor}{\code{ws_monitor} object}
@@ -23,6 +23,8 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
 
 \item{smooth_style}{how smoothed values are plotted}
 
+\item{smooth_size}{size (width) of smooth bars/points.}
+
 \item{smooth_name}{name of smoothing method used in legend}
 
 \item{theme}{ggplot2 \code{\link[ggplot2]{theme}} controlling plotting options (see \code{\link[PWFSLSmoke]{theme_monitors}} for default)}
@@ -35,7 +37,8 @@ monitorPlot_dailyBarplotFacets(ws_monitor, monitorIDs = NULL,
 \code{\link[ggplot2]{ggplot}} object
 }
 \description{
-Plots a facetted set of daily-averaged air quality data for multiple monitoring stations.
+Plots a facetted set of daily-averaged air quality data for multiple monitoring stations,
+optionally with smoothed hourly values.
 }
 \examples{
 \dontrun{

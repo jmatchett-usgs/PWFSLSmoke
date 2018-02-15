@@ -10,12 +10,14 @@
 #' @param smooth_func \code{PWFSLSmoke} smoothing function (set to \code{NULL} to exclude smoothed values)
 #' @param smooth_args list of additional arguments to the smoothing function
 #' @param smooth_style how smoothed values are plotted
+#' @param smooth_size size (width) of smooth bars/points.
 #' @param smooth_name name of smoothing method used in legend
 #' @param theme ggplot2 \code{\link[ggplot2]{theme}} controlling plotting options (see \code{\link[PWFSLSmoke]{theme_monitors}} for default)
 #' @param date_format formatting code for x-axis dates (see \code{\link[base]{strftime}} for codes)
 #' @param ... additional arguments, such as \code{tlim}, passed to \code{\link[PWFSLSmoke]{monitor_subset}}
 #' @return \code{\link[ggplot2]{ggplot}} object
-#' @description Plots a facetted set of daily-averaged air quality data for multiple monitoring stations.
+#' @description Plots a facetted set of daily-averaged air quality data for multiple monitoring stations,
+#' optionally with smoothed hourly values.
 #' @examples
 #' \dontrun{
 #' portland_monitors <- Northwest_Megafires$meta$monitorID[grepl('Portland', Northwest_Megafires$meta$siteName)]
@@ -25,7 +27,8 @@
 monitorPlot_dailyBarplotFacets <- function(
     ws_monitor, monitorIDs=NULL, title='Daily AQI',
     smooth_func=monitor_nowcast, smooth_args=list(), smooth_style=c('bars', 'points'),
-    smooth_name='Hourly NowCast', theme=theme_monitors(), date_format='%b %d', ...) {
+    smooth_size=0.5, smooth_name='Hourly NowCast', theme=theme_monitors(),
+    date_format='%b %d', ...) {
 
     # subset monitoring IDs
     if(!is.null(monitorIDs))
@@ -77,12 +80,14 @@ monitorPlot_dailyBarplotFacets <- function(
         smooth_style <- match.arg(smooth_style)
         if(identical(smooth_style, 'bars')) {
             ws_plot <- ws_plot +
-                geom_linerange(mapping=aes(ymax=pm25, color=aqi), ymin=0, data=data_smooth)
+                geom_linerange(mapping=aes(ymax=pm25, color=aqi), ymin=0, data=data_smooth,
+                               size=smooth_size)
         }
         else if(identical(smooth_style, 'points')) {
             ws_plot <- ws_plot +
-                geom_linerange(mapping=aes(ymax=pm25), data=data_smooth, ymin=0, color='gray', size=0.1, show.legend=FALSE) +
-                geom_point(mapping=aes(color=aqi), size=0.5, data=data_smooth)
+                geom_linerange(mapping=aes(ymax=pm25), data=data_smooth, ymin=0, color='gray',
+                               size=0.1, show.legend=FALSE) +
+                geom_point(mapping=aes(color=aqi), size=smooth_size, data=data_smooth)
         }
         ws_plot <- ws_plot +
             geom_col(mapping=aes(fill=NULL), alpha=0, color='black', size=0.25, width=86400) +
